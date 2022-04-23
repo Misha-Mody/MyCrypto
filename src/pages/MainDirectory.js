@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from "react";
 import propTypes from "prop-types";
 import { Table } from "reactstrap";
-import { useTable } from "react-table/dist/react-table.development.js";
+import {
+  useTable,
+  useSortBy,
+} from "react-table/dist/react-table.development.js";
 import "../styles/pages/MainDirectory.css";
 
 /**
@@ -10,6 +13,7 @@ import "../styles/pages/MainDirectory.css";
  * @returns renders the coin data in a table format
  */
 /* eslint-disable react/jsx-key */
+/* eslint-disable no-unused-vars */
 function MainDirectory({ coingecko }) {
   const [coins, setCoins] = useState([]);
   const [loadingData, setLoadingData] = useState(true);
@@ -46,11 +50,15 @@ function MainDirectory({ coingecko }) {
     () => [
       {
         Header: "#",
-        accessor: "idx", // accessor is the "key" in the data
+        accessor: "",
+        Cell: ({ row, flatRows }) => {
+          return flatRows.indexOf(row) + 1;
+        },
+        disableSortBy: true,
       },
       {
         Header: "MCap Rank",
-        accessor: "rank",
+        accessor: "market_cap_rank",
       },
       {
         Header: "Coin Name",
@@ -58,18 +66,18 @@ function MainDirectory({ coingecko }) {
       },
       {
         Header: "Price",
-        accessor: "price",
+        accessor: "current_price",
       },
       {
         Header: "Market Cap",
-        accessor: "marketCap",
+        accessor: "market_cap",
       },
     ],
     []
   );
 
   const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
-    useTable({ columns, data });
+    useTable({ columns, data: coins }, useSortBy);
 
   console.log(coins);
   return (
@@ -93,8 +101,38 @@ function MainDirectory({ coingecko }) {
             {headerGroups.map((headerGroup) => (
               <tr {...headerGroup.getHeaderGroupProps()}>
                 {headerGroup.headers.map((column) => (
-                  <th {...column.getHeaderProps()} style={{}}>
+                  // Add the sorting props to control sorting.
+                  <th
+                    {...column.getHeaderProps(column.getSortByToggleProps())}
+                    style={{}}
+                  >
                     {column.render("Header")}
+
+                    {/* Add a sort direction indicator */}
+                    <span>
+                      {column.canSort ? (
+                        column.isSorted ? (
+                          column.isSortedDesc ? (
+                            <i
+                              className="fa fa-sort-desc sortIcon"
+                              aria-hidden="true"
+                            ></i>
+                          ) : (
+                            <i
+                              className="fa fa-sort-asc sortIcon"
+                              aria-hidden="true"
+                            ></i>
+                          )
+                        ) : (
+                          <i
+                            className="fa fa-sort sortIcon"
+                            aria-hidden="true"
+                          ></i>
+                        )
+                      ) : (
+                        ""
+                      )}
+                    </span>
                   </th>
                 ))}
               </tr>
