@@ -6,6 +6,7 @@ import {
   useTable,
   useSortBy,
 } from "react-table/dist/react-table.development.js";
+import { Link } from "react-router-dom";
 import "../styles/pages/MainDirectory.css";
 
 /**
@@ -71,7 +72,9 @@ function MainDirectory({ coingecko }) {
               <span>
                 <img className="coin-logo" src={row.row.original.image}></img>
               </span>
-              <span>{row.row.original.name}</span>
+              <Link to={`/coin?name=${row.row.original.id}`}>
+                <span>{row.row.original.name}</span>
+              </Link>
               <span className="text-muted">
                 {"  (" + row.row.original.symbol + ")"}
               </span>

@@ -38,12 +38,17 @@ table thead th {
     left: 0px;
     background-color: #212529;
     z-index: 2;
+
   }
   table thead  th:nth-child(2) , tr td:nth-child(2){
     position: sticky;
     left: 48px;
     background-color: #212529;
     z-index: 2;
+  }
+
+  .sticky{
+      cursor: pointer;
   }
 
 .text-right{
