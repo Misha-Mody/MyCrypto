@@ -11,6 +11,7 @@
 .read-more-text{
     margin-left: 10px;
     color: gray;
+    cursor: pointer;
 }
 .table{
     margin-top: 20px;
