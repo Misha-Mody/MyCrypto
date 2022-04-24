@@ -51,14 +51,13 @@ function MainDirectory({ coingecko }) {
       {
         Header: () => <div>#</div>,
         accessor: "id",
-        width: 200,
         Cell: ({ row, flatRows }) => {
           return flatRows.indexOf(row) + 1;
         },
         disableSortBy: true,
       },
       {
-        Header: () => "Coin",
+        Header: () => <span>Coin</span>,
         accessor: "name",
         Cell: (row) => {
           console.log(row);
@@ -128,7 +127,7 @@ function MainDirectory({ coingecko }) {
 
   return (
     <div className="container-fluid">
-      <div className="row table-row mt-5 mb-5">
+      <div className="table-row mt-5 mb-5">
         {" "}
         <h1 className="header">Cryptocurrency Prices by Market Cap</h1>
         {loadingData ? (

@@ -14,6 +14,7 @@ td{
     white-space: nowrap;
     vertical-align: middle;
     padding: 10px 20px !important;
+    font-size: 7 rem !important;
 }
 table thead th {
     text-transform: uppercase;
@@ -24,13 +25,13 @@ table thead th {
   }
   table thead  th:first-child, tr td:first-child{
     position: sticky;
-    left: 0;
+    left: 0px;
     background-color: #212529;
     z-index: 2;
   }
   table thead  th:nth-child(2) , tr td:nth-child(2){
     position: sticky;
-    left: 56px;
+    left: 48px;
     background-color: #212529;
     z-index: 2;
   }
@@ -56,4 +57,17 @@ table thead th {
 .sortIconDown{
     position: relative;
     bottom: 2px;
+}
+
+
+
+/* CSS for mobile devices */
+@media only screen and (max-width: 600px) {
+    .header{
+       font-size: 20px;
+    }
+    td{
+        padding: 11px 6px !important;
+        font-size: 7 rem !important;
+    }
 }
