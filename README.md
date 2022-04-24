@@ -9,14 +9,14 @@ The View Coin page displays further information for that particular coin.
 
 1. Clone the repository
 2. Move to the folder named "MyCryto"
-3. `npm install`
+3. `npm install --legacy-peer-deps`
 4. `npm start`
 5. goto `http://localhost:3000/` to view the project
 
 # Important Files
 
-1. Gecko Coin Library[!https://github.com/Misha-Mody/MyCrypto/blob/main/src/library/GeckoCoinLibrary.js]
+1. Gecko Coin Library(!https://github.com/Misha-Mody/MyCrypto/blob/main/src/library/GeckoCoinLibrary.js)
    A library to make api calls to get the list of coins.
 
-2. Main Directory Page [!https://github.com/Misha-Mody/MyCrypto/blob/main/src/pages/MainDirectory.js]
+2. Main Directory Page(!https://github.com/Misha-Mody/MyCrypto/blob/main/src/pages/MainDirectory.js)
    Displays the list of coins using React-Tables
