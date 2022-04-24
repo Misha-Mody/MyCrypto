@@ -49,28 +49,75 @@ function MainDirectory({ coingecko }) {
   const columns = React.useMemo(
     () => [
       {
-        Header: "#",
-        accessor: "",
+        Header: () => <div>#</div>,
+        accessor: "id",
+        width: 200,
         Cell: ({ row, flatRows }) => {
           return flatRows.indexOf(row) + 1;
         },
         disableSortBy: true,
       },
       {
-        Header: "MCap Rank",
-        accessor: "market_cap_rank",
-      },
-      {
-        Header: "Coin Name",
+        Header: () => "Coin",
         accessor: "name",
+        Cell: (row) => {
+          console.log(row);
+          return (
+            <div className="sticky">
+              <span>
+                <img className="coin-logo" src={row.row.original.image}></img>
+              </span>
+              <span>{row.row.original.name}</span>
+              <span className="text-muted">
+                {"  (" + row.row.original.symbol + ")"}
+              </span>
+            </div>
+          );
+        },
       },
       {
-        Header: "Price",
+        Header: () => (
+          <span
+            style={{
+              textAlign: "right",
+            }}
+          >
+            Price
+          </span>
+        ),
+        Cell: (row) => {
+          return <div>{"$ " + row.row.original.current_price}</div>;
+        },
         accessor: "current_price",
       },
       {
-        Header: "Market Cap",
+        Header: "Price Change",
+        accessor: "price_change_percentage_24h",
+        Cell: (row) => {
+          console.log(row);
+          return (
+            <div
+              className={
+                row.row.original.price_change_percentage_24h > 0
+                  ? "text-success"
+                  : "text-danger"
+              }
+            >
+              {row.row.original.price_change_percentage_24h + " %"}
+            </div>
+          );
+        },
+      },
+      {
+        Header: "Volume",
+        accessor: "total_volume",
+      },
+      {
+        Header: "Mkt Cap",
         accessor: "market_cap",
+        Cell: (row) => {
+          return <div>{"$ " + row.row.original.market_cap}</div>;
+        },
       },
     ],
     []
@@ -79,92 +126,83 @@ function MainDirectory({ coingecko }) {
   const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
     useTable({ columns, data: coins }, useSortBy);
 
-  console.log(coins);
   return (
     <div className="container-fluid">
-      <div className="row mt-5 mb-5">
+      <div className="row table-row mt-5 mb-5">
         {" "}
-        <h1>Cryptocurrency Prices by Market Cap</h1>
-      </div>
-      {loadingData ? (
-        <p>Loading Please wait...</p>
-      ) : (
-        <Table
-          dark
-          responsive
-          hover
-          striped
-          {...getTableProps()}
-          // style={{ border: "solid 1px blue" }}
-        >
-          <thead>
-            {headerGroups.map((headerGroup) => (
-              <tr {...headerGroup.getHeaderGroupProps()}>
-                {headerGroup.headers.map((column) => (
-                  // Add the sorting props to control sorting.
-                  <th
-                    {...column.getHeaderProps(column.getSortByToggleProps())}
-                    style={{}}
-                  >
-                    {column.render("Header")}
+        <h1 className="header">Cryptocurrency Prices by Market Cap</h1>
+        {loadingData ? (
+          <p>Loading Please wait...</p>
+        ) : (
+          <Table dark responsive hover striped {...getTableProps()} style={{}}>
+            <thead>
+              {headerGroups.map((headerGroup) => (
+                <tr {...headerGroup.getHeaderGroupProps()}>
+                  {headerGroup.headers.map((column) => (
+                    // Add the sorting props to control sorting.
+                    <th
+                      {...column.getHeaderProps(column.getSortByToggleProps())}
+                    >
+                      {column.render("Header")}
 
-                    {/* Add a sort direction indicator */}
-                    <span>
-                      {column.canSort ? (
-                        column.isSorted ? (
-                          column.isSortedDesc ? (
-                            <i
-                              className="fa fa-sort-desc sortIcon"
-                              aria-hidden="true"
-                            ></i>
+                      {/* Add a sort direction indicator */}
+                      <span>
+                        {column.canSort ? (
+                          column.isSorted ? (
+                            column.isSortedDesc ? (
+                              <i
+                                className="fa fa-sort-desc sortIcon sortIconDown"
+                                aria-hidden="true"
+                              ></i>
+                            ) : (
+                              <i
+                                className="fa fa-sort-asc sortIcon sortIconUp"
+                                aria-hidden="true"
+                              ></i>
+                            )
                           ) : (
                             <i
-                              className="fa fa-sort-asc sortIcon"
+                              className="fa fa-sort sortIcon"
                               aria-hidden="true"
                             ></i>
                           )
                         ) : (
-                          <i
-                            className="fa fa-sort sortIcon"
-                            aria-hidden="true"
-                          ></i>
-                        )
-                      ) : (
-                        ""
-                      )}
-                    </span>
-                  </th>
-                ))}
-              </tr>
-            ))}
-          </thead>
-          <tbody {...getTableBodyProps()}>
-            {rows.map((row) => {
-              prepareRow(row);
-              return (
-                <tr {...row.getRowProps()}>
-                  {row.cells.map((cell) => {
-                    return (
-                      <td
-                        {...cell.getCellProps()}
-                        style={
-                          {
-                            // padding: "10px",
-                            // border: "solid 1px gray",
-                            // background: "papayawhip",
-                          }
-                        }
-                      >
-                        {cell.render("Cell")}
-                      </td>
-                    );
-                  })}
+                          ""
+                        )}
+                      </span>
+                    </th>
+                  ))}
                 </tr>
-              );
-            })}
-          </tbody>
-        </Table>
-      )}
+              ))}
+            </thead>
+            <tbody {...getTableBodyProps()}>
+              {rows.map((row) => {
+                prepareRow(row);
+                return (
+                  <tr {...row.getRowProps()}>
+                    {row.cells.map((cell) => {
+                      return (
+                        <td
+                          {...cell.getCellProps()}
+                          style={
+                            {
+                              // padding: "10px",
+                              // border: "solid 1px gray",
+                              // background: "papayawhip",
+                            }
+                          }
+                        >
+                          {cell.render("Cell")}
+                        </td>
+                      );
+                    })}
+                  </tr>
+                );
+              })}
+            </tbody>
+          </Table>
+        )}
+      </div>
     </div>
   );
 }
