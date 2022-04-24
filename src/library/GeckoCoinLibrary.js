@@ -25,5 +25,13 @@ export default function GeckoCoinLibrary() {
     return res.data;
   };
 
+  geckoLib.getGlobalData = async function () {
+    const res = await axios.get(`${constants.URI}/global`);
+    console.log(res.data.data);
+    let result = res.data.data;
+    console.log(result);
+    return result;
+  };
+
   return geckoLib;
 }

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import propTypes from "prop-types";
 import { Table } from "reactstrap";
+import { numberToString } from "../library/helper/utilities.js";
 import {
   useTable,
   useSortBy,
@@ -12,6 +13,8 @@ import "../styles/pages/MainDirectory.css";
  * @param {coingecko} an object of arrays containing the coin values and their description
  * @returns renders the coin data in a table format
  */
+/* eslint-disable react/jsx-key */
+/* eslint-disable no-unused-vars */
 function MainDirectory({ coingecko }) {
   // Save the list of coins as a state variable
   const [coins, setCoins] = useState([]);
@@ -19,13 +22,22 @@ function MainDirectory({ coingecko }) {
   // If the data is still loading, does not render the table
   const [loadingData, setLoadingData] = useState(true);
 
+  // State for read more
+  const [readMore, setReadMore] = useState(false);
+
+  //Save the gloabal data relating to market in a state variable
+  const [globalData, setGlobalData] = useState();
+
   /**
    * This functions uses the public instance of the library to get the list of coins
    * and stores it in a state variable called coins
    */
   async function fetch() {
-    const res = await coingecko.getTopCoins();
-    setCoins([...res]);
+    const coin = await coingecko.getTopCoins();
+    setCoins([...coin]);
+
+    const globalData = await coingecko.getGlobalData();
+    setGlobalData(globalData);
     setLoadingData(false);
   }
 
@@ -53,7 +65,6 @@ function MainDirectory({ coingecko }) {
         Header: () => <span>Coin</span>,
         accessor: "name",
         Cell: (row) => {
-          console.log(row);
           return (
             // Display the coin logo , name and symbol
             <div className="sticky">
@@ -87,7 +98,6 @@ function MainDirectory({ coingecko }) {
         Header: "Price Change",
         accessor: "price_change_percentage_24h",
         Cell: (row) => {
-          console.log(row);
           return (
             // Change the color of text wrt percentage change
             <div
@@ -124,82 +134,127 @@ function MainDirectory({ coingecko }) {
     <div className="container-fluid">
       <div className="table-row mt-5 mb-5">
         {" "}
-        <h1 className="header">Cryptocurrency Prices by Market Cap</h1>
+        <h1 className="header">
+          Cryptocurrency Prices By Market Capitalization
+        </h1>
         {
           // Only render the table once the data has been full loaded
           loadingData ? (
             <p>Loading Please wait...</p>
           ) : (
-            <Table
-              dark
-              responsive
-              hover
-              striped
-              {...getTableProps()}
-              style={{}}
-            >
-              <thead>
-                {headerGroups.map((headerGroup, k) => (
-                  <tr key={k} {...headerGroup.getHeaderGroupProps()}>
-                    {headerGroup.headers.map((column, ke) => (
-                      // Add the sorting props to control sorting.
-                      <th
-                        {...column.getHeaderProps(
-                          column.getSortByToggleProps()
-                        )}
-                        key={ke}
-                      >
-                        {column.render("Header")}
+            <React.Fragment>
+              <p>
+                The global cryptocurrency market capitalization today is{" "}
+                <b> {"$" + numberToString(globalData.total_market_cap.usd)} </b>
+                , a{" "}
+                <span
+                  className={
+                    parseInt(globalData.market_cap_change_percentage_24h_usd) >=
+                    0
+                      ? "text-success"
+                      : "text-danger"
+                  }
+                >
+                  {" "}
+                  {String(
+                    globalData.market_cap_change_percentage_24h_usd
+                  ).substring(0, 4) + "%"}{" "}
+                </span>
+                change in the last 24 hours.
+                {/* toggler for readmore */}
+                <span
+                  onClick={() => {
+                    setReadMore(!readMore);
+                  }}
+                  className="read-more-text"
+                >
+                  Read More
+                </span>
+                {
+                  // show only if the user clicks on read more
+                  readMore && (
+                    <p>
+                      Total <b>{globalData.active_cryptocurrencies} </b>{" "}
+                      cryptocurrencies are being tracked. Total cryptocurrency
+                      trading volume in the last day is at{" "}
+                      <b>
+                        {" "}
+                        {"$" + numberToString(globalData.total_volume.usd)}{" "}
+                      </b>
+                      .
+                    </p>
+                  )
+                }
+              </p>
+              <Table dark responsive hover striped {...getTableProps()}>
+                <thead>
+                  {headerGroups.map((headerGroup, k) => (
+                    <tr key={k} {...headerGroup.getHeaderGroupProps()}>
+                      {headerGroup.headers.map((column, ke) => (
+                        // Add the sorting props to control sorting.
+                        <th
+                          {...column.getHeaderProps(
+                            column.getSortByToggleProps()
+                          )}
+                          key={ke}
+                        >
+                          {column.render("Header")}
 
-                        {/* Add a sort direction indicator arrow (up / down) in case sorting is possible,
+                          {/* Add a sort direction indicator arrow (up / down) in case sorting is possible,
                           If sorting is disabled then display no icon.
                        */}
-                        <span>
-                          {column.canSort ? (
-                            column.isSorted ? (
-                              column.isSortedDesc ? (
-                                <i
-                                  className="fa fa-sort-desc sortIcon sortIconDown"
-                                  aria-hidden="true"
-                                ></i>
+                          <span>
+                            {column.canSort ? (
+                              column.isSorted ? (
+                                column.isSortedDesc ? (
+                                  // if it is sorted in descending order then show descending icon
+                                  <i
+                                    className="fa fa-sort-desc sortIcon sortIconDown"
+                                    aria-hidden="true"
+                                  ></i>
+                                ) : (
+                                  // if it is sorted in ascending order then show ascending icon
+                                  <i
+                                    className="fa fa-sort-asc sortIcon sortIconUp"
+                                    aria-hidden="true"
+                                  ></i>
+                                )
                               ) : (
+                                // if it not sorted then show sort both ways icon
                                 <i
-                                  className="fa fa-sort-asc sortIcon sortIconUp"
+                                  className="fa fa-sort sortIcon"
                                   aria-hidden="true"
                                 ></i>
                               )
                             ) : (
-                              <i
-                                className="fa fa-sort sortIcon"
-                                aria-hidden="true"
-                              ></i>
-                            )
-                          ) : (
-                            ""
-                          )}
-                        </span>
-                      </th>
-                    ))}
-                  </tr>
-                ))}
-              </thead>
-              <tbody {...getTableBodyProps()}>
-                {rows.map((row, k) => {
-                  prepareRow(row);
-                  return (
-                    <tr key={k} {...row.getRowProps()}>
-                      {row.cells.map((cell, ke) => {
-                        return (
-                          <td key={ke} {...cell.getCellProps()}>
-                            {cell.render("Cell")}
-                          </td>
-                        );
-                      })}
+                              // if the column cannot be sorted then show no icons
+                              ""
+                            )}
+                          </span>
+                        </th>
+                      ))}
                     </tr>
-                  );
-                })}
-              </tbody>
-            </Table>
+                  ))}
+                </thead>
+
+                <tbody {...getTableBodyProps()}>
+                  {rows.map((row, k) => {
+                    prepareRow(row);
+                    return (
+                      <tr key={k} {...row.getRowProps()}>
+                        {row.cells.map((cell, ke) => {
+                          return (
+                            <td key={ke} {...cell.getCellProps()}>
+                              {cell.render("Cell")}
+                            </td>
+                          );
+                        })}
+                      </tr>
+                    );
+                  })}
+                </tbody>
+              </Table>
+            </React.Fragment>
           )
         }
       </div>

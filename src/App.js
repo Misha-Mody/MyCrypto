@@ -8,6 +8,7 @@ function App() {
    * api calls fetching data related to the coins.
    */
   const coingecko = new GeckoCoinLibrary();
+
   return (
     <div className="App">
       <MainDirectory coingecko={coingecko} />

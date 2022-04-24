@@ -5,6 +5,15 @@
 
 .header{
     margin-bottom: 30px;
+    font-weight: bolder;
+    font-family: revert;
+}
+.read-more-text{
+    margin-left: 10px;
+    color: gray;
+}
+.table{
+    margin-top: 20px;
 }
 
 .table-row{
