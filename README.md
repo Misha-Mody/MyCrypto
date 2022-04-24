@@ -15,8 +15,8 @@ The View Coin page displays further information for that particular coin.
 
 # Important Files
 
-1. Gecko Coin Library(!https://github.com/Misha-Mody/MyCrypto/blob/main/src/library/GeckoCoinLibrary.js)
+1. Gecko Coin Library(https://github.com/Misha-Mody/MyCrypto/blob/main/src/library/GeckoCoinLibrary.js)
    A library to make api calls to get the list of coins.
 
-2. Main Directory Page(!https://github.com/Misha-Mody/MyCrypto/blob/main/src/pages/MainDirectory.js)
+2. Main Directory Page(https://github.com/Misha-Mody/MyCrypto/blob/main/src/pages/MainDirectory.js)
    Displays the list of coins using React-Tables
