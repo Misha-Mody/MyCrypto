@@ -12,10 +12,11 @@ import "../styles/pages/MainDirectory.css";
  * @param {coingecko} an object of arrays containing the coin values and their description
  * @returns renders the coin data in a table format
  */
-/* eslint-disable react/jsx-key */
-/* eslint-disable no-unused-vars */
 function MainDirectory({ coingecko }) {
+  // Save the list of coins as a state variable
   const [coins, setCoins] = useState([]);
+
+  // If the data is still loading, does not render the table
   const [loadingData, setLoadingData] = useState(true);
 
   /**
@@ -34,18 +35,10 @@ function MainDirectory({ coingecko }) {
     }
   }, []);
 
-  const data = React.useMemo(
-    () =>
-      coins.map((coin, key) => ({
-        idx: key + 1,
-        rank: coin.market_cap_rank,
-        name: coin.name,
-        price: coin.current_price,
-        marketCap: coin.market_cap,
-      })),
-    []
-  );
-
+  /**
+   * Defines the column values for the react table.
+   * Mmemo is used to improve performance and avoid unnecessary re-renders
+   */
   const columns = React.useMemo(
     () => [
       {
@@ -62,6 +55,7 @@ function MainDirectory({ coingecko }) {
         Cell: (row) => {
           console.log(row);
           return (
+            // Display the coin logo , name and symbol
             <div className="sticky">
               <span>
                 <img className="coin-logo" src={row.row.original.image}></img>
@@ -95,6 +89,7 @@ function MainDirectory({ coingecko }) {
         Cell: (row) => {
           console.log(row);
           return (
+            // Change the color of text wrt percentage change
             <div
               className={
                 row.row.original.price_change_percentage_24h > 0
@@ -130,77 +125,83 @@ function MainDirectory({ coingecko }) {
       <div className="table-row mt-5 mb-5">
         {" "}
         <h1 className="header">Cryptocurrency Prices by Market Cap</h1>
-        {loadingData ? (
-          <p>Loading Please wait...</p>
-        ) : (
-          <Table dark responsive hover striped {...getTableProps()} style={{}}>
-            <thead>
-              {headerGroups.map((headerGroup) => (
-                <tr {...headerGroup.getHeaderGroupProps()}>
-                  {headerGroup.headers.map((column) => (
-                    // Add the sorting props to control sorting.
-                    <th
-                      {...column.getHeaderProps(column.getSortByToggleProps())}
-                    >
-                      {column.render("Header")}
+        {
+          // Only render the table once the data has been full loaded
+          loadingData ? (
+            <p>Loading Please wait...</p>
+          ) : (
+            <Table
+              dark
+              responsive
+              hover
+              striped
+              {...getTableProps()}
+              style={{}}
+            >
+              <thead>
+                {headerGroups.map((headerGroup, k) => (
+                  <tr key={k} {...headerGroup.getHeaderGroupProps()}>
+                    {headerGroup.headers.map((column, ke) => (
+                      // Add the sorting props to control sorting.
+                      <th
+                        {...column.getHeaderProps(
+                          column.getSortByToggleProps()
+                        )}
+                        key={ke}
+                      >
+                        {column.render("Header")}
 
-                      {/* Add a sort direction indicator */}
-                      <span>
-                        {column.canSort ? (
-                          column.isSorted ? (
-                            column.isSortedDesc ? (
-                              <i
-                                className="fa fa-sort-desc sortIcon sortIconDown"
-                                aria-hidden="true"
-                              ></i>
+                        {/* Add a sort direction indicator arrow (up / down) in case sorting is possible,
+                          If sorting is disabled then display no icon.
+                       */}
+                        <span>
+                          {column.canSort ? (
+                            column.isSorted ? (
+                              column.isSortedDesc ? (
+                                <i
+                                  className="fa fa-sort-desc sortIcon sortIconDown"
+                                  aria-hidden="true"
+                                ></i>
+                              ) : (
+                                <i
+                                  className="fa fa-sort-asc sortIcon sortIconUp"
+                                  aria-hidden="true"
+                                ></i>
+                              )
                             ) : (
                               <i
-                                className="fa fa-sort-asc sortIcon sortIconUp"
+                                className="fa fa-sort sortIcon"
                                 aria-hidden="true"
                               ></i>
                             )
                           ) : (
-                            <i
-                              className="fa fa-sort sortIcon"
-                              aria-hidden="true"
-                            ></i>
-                          )
-                        ) : (
-                          ""
-                        )}
-                      </span>
-                    </th>
-                  ))}
-                </tr>
-              ))}
-            </thead>
-            <tbody {...getTableBodyProps()}>
-              {rows.map((row) => {
-                prepareRow(row);
-                return (
-                  <tr {...row.getRowProps()}>
-                    {row.cells.map((cell) => {
-                      return (
-                        <td
-                          {...cell.getCellProps()}
-                          style={
-                            {
-                              // padding: "10px",
-                              // border: "solid 1px gray",
-                              // background: "papayawhip",
-                            }
-                          }
-                        >
-                          {cell.render("Cell")}
-                        </td>
-                      );
-                    })}
+                            ""
+                          )}
+                        </span>
+                      </th>
+                    ))}
                   </tr>
-                );
-              })}
-            </tbody>
-          </Table>
-        )}
+                ))}
+              </thead>
+              <tbody {...getTableBodyProps()}>
+                {rows.map((row, k) => {
+                  prepareRow(row);
+                  return (
+                    <tr key={k} {...row.getRowProps()}>
+                      {row.cells.map((cell, ke) => {
+                        return (
+                          <td key={ke} {...cell.getCellProps()}>
+                            {cell.render("Cell")}
+                          </td>
+                        );
+                      })}
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </Table>
+          )
+        }
       </div>
     </div>
   );
