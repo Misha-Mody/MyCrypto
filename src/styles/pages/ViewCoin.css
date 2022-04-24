@@ -1,0 +1,93 @@
+
+
+.coin-logo{
+    box-sizing: border-box;
+    margin: 0;
+    min-width: 0;
+    max-width: 100%;
+    height: auto;
+    margin-right: 10px;
+    width: 36px;
+    height: 36px;
+    min-width: 36px;
+
+}
+
+
+
+.coin-name{
+    box-sizing: border-box;
+    margin: 0;
+    min-width: 0;
+    overflow-wrap: break-word;
+    font-size: 28px;
+    font-weight: 600;
+    line-height: 36px;
+    display: inline-flex;
+    flex-wrap: wrap;
+    align-items: center;
+    color: white;
+    padding-right: 10px;
+}
+
+.coin-symbol-badge{
+    font-size: 0.35em;
+    background-color: #707A8A!important;
+    position: relative;
+    top: -5px;
+}
+
+.form-select{
+    margin-top: 30px;
+}
+
+
+@media only screen and (min-width: 767px) {
+
+    .coin-logo{
+    width: 48px;
+    height: 48px;
+    min-width: 48px;
+    margin-right: 17px;
+    }
+
+    .coin-name{
+        font-size: 40px;
+        font-weight: 600;
+        line-height: 48px;
+        max-width: calc(100% - 72px);
+        padding-right: 7px;
+    }
+
+    .coin-symbol-badge{
+       
+        font-size: 0.35em;
+    }
+
+    .form-select{
+        margin-top: 10px;
+    }
+}
+
+.blue{
+    background-color: aqua;
+}
+.pink{
+    background-color: pink;
+}
+.red{
+    background-color: red;
+}
+.yellow{
+    background-color: yellow;
+}
+
+
+
+
+/* CSS for mobile devices */
+@media only screen and (max-width: 600px) {
+
+
+
+}
