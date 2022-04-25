@@ -29,7 +29,6 @@ function ViewCoin({ coinInfo }) {
 
   async function fetch(name) {
     const data = await coinInfo.getCoinInfo(name);
-    console.log(data);
     setData(data);
     setAllCurrencyPrice(data.market_data.current_price);
     setLoadingData(false);
