@@ -1,11 +1,9 @@
 import React from "react";
-/* eslint-disable no-unused-vars */
-/* eslint react/prop-types: 0 */
-/* eslint-disable react/jsx-key */
 import StatCard from "../components/StatCard";
 import Carousel, { arrowsPlugin } from "@brainhubeu/react-carousel";
 import "@brainhubeu/react-carousel/lib/style.css";
-import { useMediaQuery } from "react-responsive";
+/* eslint-disable no-unused-vars */
+/* eslint react/prop-types: 0 */
 
 export default function Statistics({ data }) {
   const [dimensions, setDimensions] = React.useState({

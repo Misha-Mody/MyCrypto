@@ -10,6 +10,7 @@ import { Link } from "react-router-dom";
 import "../styles/pages/MainDirectory.css";
 import Navbar from "../components/Navbar.js";
 import Loader from "../components/Loader.js";
+
 /* eslint react/prop-types: 0 */
 /**
  *
@@ -18,6 +19,7 @@ import Loader from "../components/Loader.js";
  */
 /* eslint-disable react/jsx-key */
 /* eslint-disable no-unused-vars */
+
 function MainDirectory({ globalData, coingecko }) {
   // Save the list of coins as a state variable
   const [coins, setCoins] = useState([]);

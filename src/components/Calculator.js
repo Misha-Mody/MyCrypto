@@ -6,7 +6,7 @@ export default function Calculator(props) {
 
   const handle = (e) => {
     setPrice(e.target.value);
-    setcPrice(e.target.value * props.price[props.currency]);
+    setcPrice((e.target.value * props.price[props.currency]).toFixed(2));
   };
 
   return (
