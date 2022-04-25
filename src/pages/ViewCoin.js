@@ -52,7 +52,7 @@ function ViewCoin({ globalData, coinInfo }) {
     let mdata = {};
     mdata["Rank"] = data.market_cap_rank;
     mdata["Market Cap"] = data.market_data.market_cap[currency];
-    mdata["Circulating Suppy"] = data.market_data.circulating_supply;
+    mdata["Suppy"] = data.market_data.circulating_supply;
     mdata["MCap Change (24h)"] =
       data.market_data.market_cap_change_percentage_24h_in_currency[currency] +
       "%";

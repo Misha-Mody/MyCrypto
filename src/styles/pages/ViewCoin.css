@@ -79,17 +79,19 @@
     flex-direction: row;
     justify-content: space-between;
     color:white;
-    background-color:  #121212;;
+    background-color:  #121212;
+    border: solid 1px #232119;
 }
 
 
 .stat-card-header{
-   background-color:  darkred;
+    background-color: #444;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.125);
 }
 
 .stat-card{
     margin: 10px auto;
-    background-color: #121212 !important;
+    border-color: #f39c12 !important;
 }
 
 .stat-card-container{
