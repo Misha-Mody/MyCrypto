@@ -3,6 +3,17 @@ import React from "react";
 /* eslint react/prop-types: 0 */
 /* eslint-disable react/jsx-key */
 export default function StatCard({ name, data, k }) {
+  const getClass = (d) => {
+    let c = "";
+    if (typeof d === "string" || d instanceof String) {
+      if (d.slice(0, 1) == "-") {
+        c = "text-danger";
+      } else {
+        c = "text-success";
+      }
+    }
+    return c;
+  };
   return (
     <div
       key={k}
@@ -14,7 +25,7 @@ export default function StatCard({ name, data, k }) {
         {Object.keys(data).map((d, k) => {
           return (
             <li key={k} className="stat-card-list list-group-item">
-              <p>{d}</p> {data[d]}
+              {d} <p className={getClass(data[d])}> {data[d]}</p>
             </li>
           );
         })}

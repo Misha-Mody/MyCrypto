@@ -15,6 +15,7 @@ function BasicCoinDetails({
   isBigScreen,
   allCurrencyPrice,
 }) {
+  console.log(data);
   return (
     <React.Fragment>
       <div className="row">
@@ -54,16 +55,41 @@ function BasicCoinDetails({
       {/* second row containing the price and calcularor */}
       <div className="row">
         <div className="col-lg-7 col-sm-12">
-          <div className="big-price-container">
-            <AnimateNumber val={allCurrencyPrice[currency]} />
-            <span className="big-price-currency">
+          <div className="row">
+            <div className="col-lg-7 col-sm-12">
+              <div className="big-price-container">
+                <AnimateNumber val={allCurrencyPrice[currency]} />
+                <span className="big-price-currency">
+                  {" "}
+                  {"     ( " + currency + " ) "}{" "}
+                </span>
+              </div>
+            </div>
+            <div className="social-media col-lg-5">
               {" "}
-              {"     ( " + currency + " ) "}{" "}
-            </span>
+              <p>SENTIMENT</p>
+              <p>
+                <i className="fa fa-solid fa-thumbs-up"></i>{" "}
+                <span style={{ color: "green" }}>
+                  {data.sentiment_votes_up_percentage + "%"}
+                </span>
+              </p>
+              <p>
+                <i className="fa fa-solid fa-thumbs-down"></i>{" "}
+                <span style={{ color: "red" }}>
+                  {data.sentiment_votes_up_percentage + "%"}
+                </span>
+              </p>
+            </div>
           </div>
         </div>
         <div className="col-lg-5 col-sm-12">
-          <Calculator currency={currency} price={allCurrencyPrice} />
+          <Calculator
+            currency={currency}
+            price={allCurrencyPrice}
+            name={data.name}
+            isBigScreen={isBigScreen}
+          />
         </div>
       </div>
     </React.Fragment>

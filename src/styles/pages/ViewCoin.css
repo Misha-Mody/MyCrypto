@@ -57,6 +57,11 @@
     align-items: center;
     height: 10vw;
     flex-wrap: wrap;
+    flex-direction: row;
+}
+
+.social-media{
+    display: none;
 }
 
 .big-price-number{
@@ -100,9 +105,19 @@
     color: white;
 }
 
+@media (min-width: 992px){
+    .social-media{
+        display: block;
+        margin: auto;
+        font-size: larger;
+        
+    }
+}
 
 
 @media only screen and (min-width: 767px) {
+
+
 
     .coin-logo{
     width: 48px;
