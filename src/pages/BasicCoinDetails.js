@@ -15,56 +15,47 @@ function BasicCoinDetails({
   isBigScreen,
   allCurrencyPrice,
 }) {
-  console.log(data);
   return (
-    <React.Fragment>
-      <div className="row">
-        {/* the first row containing the basic coin name */}
-
-        <div className="col-lg-7">
-          <div className="row">
-            <div className="col-sm-12 col-lg-6">
-              <h1>
-                {" "}
-                <span>
-                  <img className="coin-logo" src={data?.image.large}></img>
-                </span>
-                <span className="coin-name">{data.name + "    "}</span>
-                <span className="badge coin-symbol-badge text-dark">
-                  {"  (" + data.symbol + ")"}
-                </span>
-              </h1>
-            </div>
-
-            {/* option to select the currency */}
-            <div className="col-sm-12 col-lg-4">
-              <SelectCurrency
-                currency={currency}
-                onChange={handleChange}
-                isBigScreen={isBigScreen}
-                allCurrencyPrice={allCurrencyPrice}
-              />
-              <div className="col-lg-2"></div>
-            </div>
+    <div className="row">
+      {/* row containing coin name */}
+      <div className="col-sm-12 col-lg-6">
+        {/* row containing price */}
+        <div className="row">
+          {/* coin name col */}
+          <div className="col-sm-12 col-lg-6">
+            <h1>
+              {" "}
+              <span>
+                <img className="coin-logo" src={data?.image.large}></img>
+              </span>
+              <span className="coin-name">{data.name + "    "}</span>
+              <span className="badge coin-symbol-badge text-dark">
+                {"  (" + data.symbol + ")"}
+              </span>
+            </h1>
+          </div>
+          {/* select currency option */}
+          <div className="col-sm-12 col-lg-6">
+            <SelectCurrency
+              currency={currency}
+              onChange={handleChange}
+              isBigScreen={isBigScreen}
+              allCurrencyPrice={allCurrencyPrice}
+            />
           </div>
         </div>
 
-        <div className="col-sm-12 col-lg-5"> </div>
-      </div>
-
-      {/* second row containing the price and calcularor */}
-      <div className="row">
-        <div className="col-lg-7 col-sm-12">
-          <div className="row">
-            <div className="col-lg-7 col-sm-12">
-              <div className="big-price-container">
-                <AnimateNumber val={allCurrencyPrice[currency]} />
-                <span className="big-price-currency">
-                  {" "}
-                  {"     ( " + currency + " ) "}{" "}
-                </span>
-              </div>
+        <div className="row">
+          <div className="col-lg-6 col-sm-12">
+            <div className="big-price-container">
+              <AnimateNumber val={allCurrencyPrice[currency]} />
+              <span className="big-price-currency">
+                {" "}
+                {"     ( " + currency + " ) "}{" "}
+              </span>
             </div>
+          </div>
+          <div className="col-lg-6">
             <div className="social-media col-lg-5">
               {" "}
               <p>SENTIMENT</p>
@@ -83,16 +74,17 @@ function BasicCoinDetails({
             </div>
           </div>
         </div>
-        <div className="col-lg-5 col-sm-12">
-          <Calculator
-            currency={currency}
-            price={allCurrencyPrice}
-            name={data.name}
-            isBigScreen={isBigScreen}
-          />
-        </div>
       </div>
-    </React.Fragment>
+
+      <div className="col-sm-12 col-lg-6">
+        <Calculator
+          currency={currency}
+          price={allCurrencyPrice}
+          name={data.name}
+          isBigScreen={isBigScreen}
+        />
+      </div>
+    </div>
   );
 }
 

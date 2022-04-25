@@ -8,6 +8,7 @@ import Statistics from "./Statistics";
 import Navbar from "../components/Navbar";
 import BreadCrumb from "../components/BreadCrumb";
 import Loader from "../components/Loader";
+import PriceChart from "../components/PriceChart";
 
 /* eslint-disable react/jsx-key */
 /* eslint-disable no-unused-vars */
@@ -28,8 +29,6 @@ function ViewCoin({ globalData, coinInfo }) {
   });
   const isBigScreen = useMediaQuery({ query: "(min-width: 1824px)" });
   const isTabletOrMobile = useMediaQuery({ query: "(max-width: 768px)" });
-  //   const isPortrait = useMediaQuery({ query: "(orientation: portrait)" });
-  //   const isRetina = useMediaQuery({ query: "(min-resolution: 2dppx)" });
 
   async function fetch(name) {
     const data = await coinInfo.getCoinInfo(name);
@@ -122,6 +121,7 @@ function ViewCoin({ globalData, coinInfo }) {
               <h3> Statistical Data</h3>
               <Statistics data={getStatisticData()} />
             </div>
+            <PriceChart coinInfo={coinInfo} />
           </div>
         </React.Fragment>
       )}

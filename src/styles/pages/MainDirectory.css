@@ -59,15 +59,7 @@ table thead th {
     width: 1.25rem;
 }
 
-.calculator-container{
-margin: 20px;
-text-align: center;
-background: #f39c12;
-padding: 20px;
-color: black;
-border: 1px solid white;
-box-shadow: 0 7px 8px -5px lightblue
-}
+
 
 
 /* Sort icons in table */

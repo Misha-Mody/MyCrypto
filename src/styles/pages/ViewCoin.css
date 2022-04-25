@@ -42,6 +42,7 @@
     color: white;
     background-color:rgb(7 65 128);
     text-align: center;
+
 }
 
 .BrainhubCarousel__arrows .BrainhubCarousel__arrows:hover ,.BrainhubCarousel__arrows:hover:enabled,  .BrainhubCarousel__arrows:hover:enabled{
@@ -70,9 +71,19 @@
 }
 
 .big-price-currency{
-    font-size: 4vw;
+    font-size: 20px;
     margin-left: 10px;
 }
+.calculator-container{
+    margin: 20px;
+    text-align: center;
+    background: #f39c12;
+    padding: 20px;
+    color: black;
+    border: 1px solid white;
+    box-shadow: 0 7px 8px -5px lightblue;
+    height: 100%;
+    }
 
 .stat-card-list{
     display: flex;
@@ -81,6 +92,12 @@
     color:white;
     background-color:  #121212;
     border: solid 1px #232119;
+}
+
+.chart-container{
+    overflow: scroll;
+    margin-bottom: 50px;
+
 }
 
 

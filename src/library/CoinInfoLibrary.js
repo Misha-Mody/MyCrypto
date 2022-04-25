@@ -18,11 +18,13 @@ export default function CoinInfoLibrary() {
     return res.data;
   };
 
-  //   coinInfo.getGlobalData = async function () {
-  //     const res = await axios.get(`${constants.URI}/global`);
-  //     let result = res.data.data;
-  //     return result;
-  //   };
+  coinInfo.getPriceData = async function (id, currency = "usd", days = "7") {
+    const res = await axios.get(
+      `${constants.URI}/coins/${id}/market_chart?vs_currency=${currency}&days=${days}`
+    );
+    let result = res.data;
+    return result;
+  };
 
   return coinInfo;
 }
