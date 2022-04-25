@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import propTypes from "prop-types";
 /* eslint react/prop-types: 0 */
 export default function Calculator(props) {
   const [price, setPrice] = useState(0);
