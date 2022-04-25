@@ -17,6 +17,5 @@ export default {
     "linebreak-style": ["error", "unix"],
     quotes: ["error", "double"],
     semi: ["error", "always"],
-    "react/prop-types": "off",
   },
 };

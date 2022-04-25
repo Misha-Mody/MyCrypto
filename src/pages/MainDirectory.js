@@ -8,7 +8,8 @@ import {
 } from "react-table/dist/react-table.development.js";
 import { Link } from "react-router-dom";
 import "../styles/pages/MainDirectory.css";
-
+import Navbar from "../components/Navbar.js";
+/* eslint react/prop-types: 0 */
 /**
  *
  * @param {coingecko} an object of arrays containing the coin values and their description
@@ -16,7 +17,7 @@ import "../styles/pages/MainDirectory.css";
  */
 /* eslint-disable react/jsx-key */
 /* eslint-disable no-unused-vars */
-function MainDirectory({ coingecko }) {
+function MainDirectory({ globalData, coingecko }) {
   // Save the list of coins as a state variable
   const [coins, setCoins] = useState([]);
 
@@ -26,9 +27,6 @@ function MainDirectory({ coingecko }) {
   // State for read more
   const [readMore, setReadMore] = useState(false);
 
-  //Save the gloabal data relating to market in a state variable
-  const [globalData, setGlobalData] = useState();
-
   /**
    * This functions uses the public instance of the library to get the list of coins
    * and stores it in a state variable called coins
@@ -36,9 +34,6 @@ function MainDirectory({ coingecko }) {
   async function fetch() {
     const coin = await coingecko.getTopCoins();
     setCoins([...coin]);
-
-    const globalData = await coingecko.getGlobalData();
-    setGlobalData(globalData);
     setLoadingData(false);
   }
 
@@ -134,45 +129,52 @@ function MainDirectory({ coingecko }) {
     useTable({ columns, data: coins }, useSortBy);
 
   return (
-    <div className="container-fluid">
-      <div className="table-row mt-5 mb-5">
-        {" "}
-        <h1 className="header">
-          Cryptocurrency Prices By Market Capitalization
-        </h1>
-        {
-          // Only render the table once the data has been full loaded
-          loadingData ? (
-            <p>Loading Please wait...</p>
-          ) : (
-            <React.Fragment>
-              <p>
-                The global cryptocurrency market capitalization today is{" "}
-                <b> {"$" + numberToString(globalData.total_market_cap.usd)} </b>
-                , a{" "}
-                <span
-                  className={
-                    parseInt(globalData.market_cap_change_percentage_24h_usd) >=
-                    0
-                      ? "text-success"
-                      : "text-danger"
-                  }
-                >
-                  {" "}
-                  {String(
-                    globalData.market_cap_change_percentage_24h_usd
-                  ).substring(0, 4) + "%"}{" "}
-                </span>
-                change in the last 24 hours.
-                {/* toggler for readmore */}
-                <span
-                  onClick={() => {
-                    setReadMore(!readMore);
-                  }}
-                  className="read-more-text"
-                >
-                  Read More
-                </span>
+    <React.Fragment>
+      <Navbar globalData={globalData} />
+      <div className="container-fluid">
+        <div className="table-row mt-5 mb-5">
+          {" "}
+          <h1 className="header">
+            Cryptocurrency Prices By Market Capitalization
+          </h1>
+          {
+            // Only render the table once the data has been full loaded
+            loadingData ? (
+              <p>Loading Please wait...</p>
+            ) : (
+              <React.Fragment>
+                <p>
+                  The global cryptocurrency market capitalization today is{" "}
+                  <b>
+                    {" "}
+                    {"$" + numberToString(globalData.total_market_cap.usd)}{" "}
+                  </b>
+                  , a{" "}
+                  <span
+                    className={
+                      parseInt(
+                        globalData.market_cap_change_percentage_24h_usd
+                      ) >= 0
+                        ? "text-success"
+                        : "text-danger"
+                    }
+                  >
+                    {" "}
+                    {String(
+                      globalData.market_cap_change_percentage_24h_usd
+                    ).substring(0, 4) + "%"}{" "}
+                  </span>
+                  change in the last 24 hours.
+                  {/* toggler for readmore */}
+                  <span
+                    onClick={() => {
+                      setReadMore(!readMore);
+                    }}
+                    className="read-more-text"
+                  >
+                    {readMore ? "Read Less" : "Read More"}
+                  </span>
+                </p>
                 {
                   // show only if the user clicks on read more
                   readMore && (
@@ -188,80 +190,81 @@ function MainDirectory({ coingecko }) {
                     </p>
                   )
                 }
-              </p>
-              <Table dark responsive hover striped {...getTableProps()}>
-                <thead>
-                  {headerGroups.map((headerGroup, k) => (
-                    <tr key={k} {...headerGroup.getHeaderGroupProps()}>
-                      {headerGroup.headers.map((column, ke) => (
-                        // Add the sorting props to control sorting.
-                        <th
-                          {...column.getHeaderProps(
-                            column.getSortByToggleProps()
-                          )}
-                          key={ke}
-                        >
-                          {column.render("Header")}
 
-                          {/* Add a sort direction indicator arrow (up / down) in case sorting is possible,
+                <Table dark responsive hover striped {...getTableProps()}>
+                  <thead>
+                    {headerGroups.map((headerGroup, k) => (
+                      <tr key={k} {...headerGroup.getHeaderGroupProps()}>
+                        {headerGroup.headers.map((column, ke) => (
+                          // Add the sorting props to control sorting.
+                          <th
+                            {...column.getHeaderProps(
+                              column.getSortByToggleProps()
+                            )}
+                            key={ke}
+                          >
+                            {column.render("Header")}
+
+                            {/* Add a sort direction indicator arrow (up / down) in case sorting is possible,
                           If sorting is disabled then display no icon.
                        */}
-                          <span>
-                            {column.canSort ? (
-                              column.isSorted ? (
-                                column.isSortedDesc ? (
-                                  // if it is sorted in descending order then show descending icon
-                                  <i
-                                    className="fa fa-sort-desc sortIcon sortIconDown"
-                                    aria-hidden="true"
-                                  ></i>
+                            <span>
+                              {column.canSort ? (
+                                column.isSorted ? (
+                                  column.isSortedDesc ? (
+                                    // if it is sorted in descending order then show descending icon
+                                    <i
+                                      className="fa fa-sort-desc sortIcon sortIconDown"
+                                      aria-hidden="true"
+                                    ></i>
+                                  ) : (
+                                    // if it is sorted in ascending order then show ascending icon
+                                    <i
+                                      className="fa fa-sort-asc sortIcon sortIconUp"
+                                      aria-hidden="true"
+                                    ></i>
+                                  )
                                 ) : (
-                                  // if it is sorted in ascending order then show ascending icon
+                                  // if it not sorted then show sort both ways icon
                                   <i
-                                    className="fa fa-sort-asc sortIcon sortIconUp"
+                                    className="fa fa-sort sortIcon"
                                     aria-hidden="true"
                                   ></i>
                                 )
                               ) : (
-                                // if it not sorted then show sort both ways icon
-                                <i
-                                  className="fa fa-sort sortIcon"
-                                  aria-hidden="true"
-                                ></i>
-                              )
-                            ) : (
-                              // if the column cannot be sorted then show no icons
-                              ""
-                            )}
-                          </span>
-                        </th>
-                      ))}
-                    </tr>
-                  ))}
-                </thead>
-
-                <tbody {...getTableBodyProps()}>
-                  {rows.map((row, k) => {
-                    prepareRow(row);
-                    return (
-                      <tr key={k} {...row.getRowProps()}>
-                        {row.cells.map((cell, ke) => {
-                          return (
-                            <td key={ke} {...cell.getCellProps()}>
-                              {cell.render("Cell")}
-                            </td>
-                          );
-                        })}
+                                // if the column cannot be sorted then show no icons
+                                ""
+                              )}
+                            </span>
+                          </th>
+                        ))}
                       </tr>
-                    );
-                  })}
-                </tbody>
-              </Table>
-            </React.Fragment>
-          )
-        }
+                    ))}
+                  </thead>
+
+                  <tbody {...getTableBodyProps()}>
+                    {rows.map((row, k) => {
+                      prepareRow(row);
+                      return (
+                        <tr key={k} {...row.getRowProps()}>
+                          {row.cells.map((cell, ke) => {
+                            return (
+                              <td key={ke} {...cell.getCellProps()}>
+                                {cell.render("Cell")}
+                              </td>
+                            );
+                          })}
+                        </tr>
+                      );
+                    })}
+                  </tbody>
+                </Table>
+              </React.Fragment>
+            )
+          }
+        </div>
       </div>
-    </div>
+    </React.Fragment>
   );
 }
 

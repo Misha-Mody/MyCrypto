@@ -5,10 +5,12 @@ import "../styles/pages/ViewCoin.css";
 import { useMediaQuery } from "react-responsive";
 import BasicCoinDetails from "./BasicCoinDetails";
 import Statistics from "./Statistics";
+import Navbar from "../components/Navbar";
+import BreadCrumb from "../components/BreadCrumb";
 /* eslint-disable react/jsx-key */
 /* eslint-disable no-unused-vars */
 
-function ViewCoin({ coinInfo }) {
+function ViewCoin({ globalData, coinInfo }) {
   const [data, setData] = useState();
   // If the data is still loading, does not render the table
   const [loadingData, setLoadingData] = useState(true);
@@ -102,20 +104,24 @@ function ViewCoin({ coinInfo }) {
       {loadingData ? (
         <p>Loading Please wait...</p>
       ) : (
-        <div className="container-fluid mt-5">
-          <BasicCoinDetails
-            loadingData={loadingData}
-            data={data}
-            currency={currency}
-            handleChange={handleChange}
-            isBigScreen={isBigScreen}
-            allCurrencyPrice={allCurrencyPrice}
-          />
-          <div className="row mt-5">
-            <h3> Statistical Data</h3>
-            <Statistics data={getStatisticData()} />
+        <React.Fragment>
+          <Navbar globalData={globalData} />
+          <div className="container-fluid mt-5">
+            <BreadCrumb />
+            <BasicCoinDetails
+              loadingData={loadingData}
+              data={data}
+              currency={currency}
+              handleChange={handleChange}
+              isBigScreen={isBigScreen}
+              allCurrencyPrice={allCurrencyPrice}
+            />
+            <div className="row mt-5">
+              <h3> Statistical Data</h3>
+              <Statistics data={getStatisticData()} />
+            </div>
           </div>
-        </div>
+        </React.Fragment>
       )}
     </div>
   );
@@ -123,6 +129,7 @@ function ViewCoin({ coinInfo }) {
 
 ViewCoin.propTypes = {
   coinInfo: propTypes.object,
+  globalData: propTypes.object,
 };
 
 export default ViewCoin;
