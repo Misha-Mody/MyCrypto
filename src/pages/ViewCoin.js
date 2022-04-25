@@ -5,6 +5,7 @@ import "../styles/pages/ViewCoin.css";
 import { useMediaQuery } from "react-responsive";
 import BasicCoinDetails from "./BasicCoinDetails";
 import Statistics from "./Statistics";
+import PriceChart from "./PriceChart";
 /* eslint-disable react/jsx-key */
 /* eslint-disable no-unused-vars */
 
@@ -114,6 +115,9 @@ function ViewCoin({ coinInfo }) {
           <div className="row mt-5">
             <h3> Statistical Data</h3>
             <Statistics data={getStatisticData()} />
+          </div>
+          <div className="row mt-5">
+            <PriceChart coin={data.id} />
           </div>
         </div>
       )}
