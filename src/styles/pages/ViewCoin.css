@@ -40,7 +40,14 @@
 .form-select{
     margin-top: 30px;
     color: white;
-    background-color: #1c1c36;
+    background-color:rgb(7 65 128);
+}
+
+.BrainhubCarousel__arrows .BrainhubCarousel__arrows:hover ,.BrainhubCarousel__arrows:hover:enabled,  .BrainhubCarousel__arrows:hover:enabled{
+    background-color:rgb(7 65 128);
+}
+.BrainhubCarousel__arrows:hover:enabled {
+    background-color: black;
 }
 
 .big-price-container{
@@ -84,6 +91,7 @@
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: space-between;
+    margin-top: 20px;
 }
 
 .hr{
@@ -117,6 +125,10 @@
 
     .form-select{
         margin-top: 10px;
+    }
+
+    .stat-card-container{
+        margin-top: 30px;
     }
  
 }

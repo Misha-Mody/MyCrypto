@@ -2,7 +2,6 @@ import React from "react";
 import propTypes from "prop-types";
 
 export default function Navbar({ globalData }) {
-  console.log(globalData);
   const style = { color: "#007bff" };
   return (
     <nav className="navbar sticky-top navbar-dark bg-dark">
