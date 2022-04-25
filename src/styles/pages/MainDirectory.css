@@ -93,6 +93,17 @@ table thead th {
     scrollbar-width: none;  /* Firefox */
   }
 
+  .loader{
+    position: absolute; 
+   top: 50%;
+    left: 50%;
+    right: 50%;
+    margin: auto;
+    transform: translate(-50%, -50%);
+    font-size: 100px;
+  }
+
+
 
 
 /* CSS for mobile devices */

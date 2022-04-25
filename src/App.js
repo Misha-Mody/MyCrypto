@@ -5,6 +5,7 @@ import CoinInfoLibrary from "./library/CoinInfoLibrary.js";
 import MainDirectory from "./pages/MainDirectory.js";
 import ViewCoin from "./pages/ViewCoin";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Loader from "./components/Loader";
 
 function App() {
   /**
@@ -39,7 +40,7 @@ function App() {
   return (
     <div className="App">
       {loadingData ? (
-        <p>please wait</p>
+        <Loader />
       ) : (
         <BrowserRouter>
           <Routes>

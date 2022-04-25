@@ -9,6 +9,7 @@ import {
 import { Link } from "react-router-dom";
 import "../styles/pages/MainDirectory.css";
 import Navbar from "../components/Navbar.js";
+import Loader from "../components/Loader.js";
 /* eslint react/prop-types: 0 */
 /**
  *
@@ -140,7 +141,7 @@ function MainDirectory({ globalData, coingecko }) {
           {
             // Only render the table once the data has been full loaded
             loadingData ? (
-              <p>Loading Please wait...</p>
+              <Loader></Loader>
             ) : (
               <React.Fragment>
                 <p>

@@ -7,6 +7,7 @@ import BasicCoinDetails from "./BasicCoinDetails";
 import Statistics from "./Statistics";
 import Navbar from "../components/Navbar";
 import BreadCrumb from "../components/BreadCrumb";
+import Loader from "../components/Loader";
 /* eslint-disable react/jsx-key */
 /* eslint-disable no-unused-vars */
 
@@ -102,7 +103,7 @@ function ViewCoin({ globalData, coinInfo }) {
   return (
     <div>
       {loadingData ? (
-        <p>Loading Please wait...</p>
+        <Loader />
       ) : (
         <React.Fragment>
           <Navbar globalData={globalData} />
