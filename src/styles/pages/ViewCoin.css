@@ -39,7 +39,57 @@
 
 .form-select{
     margin-top: 30px;
+    color: white;
+    background-color: #1c1c36;
 }
+
+.big-price-container{
+    color: white;
+    display: flex;
+    align-items: center;
+    height: 10vw;
+    flex-wrap: wrap;
+}
+
+.big-price-number{
+    font-size: 5vw;
+    font-weight: 600;
+}
+
+.big-price-currency{
+    font-size: 4vw;
+    margin-left: 10px;
+}
+
+.stat-card-list{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    color:white;
+    background-color:  #121212;;
+}
+
+
+.stat-card-header{
+   background-color: hsl(240deg 32% 16%);
+}
+
+.stat-card{
+    margin: 10px auto;
+}
+
+.stat-card-container{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.hr{
+    width:50%;
+    color: white;
+}
+
 
 
 @media only screen and (min-width: 767px) {
@@ -67,6 +117,7 @@
     .form-select{
         margin-top: 10px;
     }
+ 
 }
 
 .blue{
@@ -84,10 +135,3 @@
 
 
 
-
-/* CSS for mobile devices */
-@media only screen and (max-width: 600px) {
-
-
-
-}

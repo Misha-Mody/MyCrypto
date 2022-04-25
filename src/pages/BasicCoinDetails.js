@@ -1,6 +1,7 @@
 import React from "react";
 import "../styles/pages/ViewCoin.css";
 import SelectCurrency from "../components/SelectCurrency.js";
+import AnimateNumber from "../components/AnimateNumber";
 /* eslint-disable react/jsx-key */
 /* eslint-disable no-unused-vars */
 /* eslint react/prop-types: 0 */
@@ -14,7 +15,7 @@ function BasicCoinDetails({
   allCurrencyPrice,
 }) {
   return (
-    <div className="container-fluid mt-5">
+    <React.Fragment>
       <div className="row">
         {/* the first row containing the basic coin name */}
 
@@ -49,13 +50,19 @@ function BasicCoinDetails({
       </div>
 
       {/* second row containing the price and calcularor */}
-      {/* <div className="row mt-5">
-        <div className="col-lg-7 col-sm-12 red">
-          <div className="big-price-container">34</div>
+      <div className="row">
+        <div className="col-lg-7 col-sm-12">
+          <div className="big-price-container">
+            <AnimateNumber val={allCurrencyPrice[currency]} />
+            <span className="big-price-currency">
+              {" "}
+              {"     ( " + currency + " ) "}{" "}
+            </span>
+          </div>
         </div>
-        <div className="col-lg-5 pink col-sm-12">bye</div>
-      </div> */}
-    </div>
+        <div className="col-lg-5 col-sm-12"></div>
+      </div>
+    </React.Fragment>
   );
 }
 

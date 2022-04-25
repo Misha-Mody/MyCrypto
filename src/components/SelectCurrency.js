@@ -4,6 +4,7 @@ export default function SelectCurrency(props) {
   const handleChange = (event) => {
     props.onChange(event.target.value);
   };
+
   return (
     <select
       className={
@@ -15,10 +16,10 @@ export default function SelectCurrency(props) {
       aria-label=".form-select-lg example"
       onChange={handleChange}
     >
-      {Array.from(props.allCurrencyPrice).map((val, key) => {
+      {Object.keys(props.allCurrencyPrice).map((val, key) => {
         return (
-          <option key={key} value={val[0]}>
-            {val[0]}
+          <option key={key} value={val}>
+            {val}
           </option>
         );
       })}
