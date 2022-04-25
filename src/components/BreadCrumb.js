@@ -6,7 +6,7 @@ export default function BreadCrumb() {
       <nav>
         <ol className="breadcrumb">
           <li className="breadcrumb-item">
-            <a href="http://localhost:3001/">Home</a>
+            <a href="http://localhost:3000/">Home</a>
           </li>
           <li className="breadcrumb-item active" aria-current="page">
             Coin

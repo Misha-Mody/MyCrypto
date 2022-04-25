@@ -2,6 +2,7 @@ import React from "react";
 import "../styles/pages/ViewCoin.css";
 import SelectCurrency from "../components/SelectCurrency.js";
 import AnimateNumber from "../components/AnimateNumber";
+import Calculator from "../components/Calculator";
 /* eslint-disable react/jsx-key */
 /* eslint-disable no-unused-vars */
 /* eslint react/prop-types: 0 */
@@ -21,7 +22,7 @@ function BasicCoinDetails({
 
         <div className="col-lg-7">
           <div className="row">
-            <div className="col-sm-12 col-lg-8">
+            <div className="col-sm-12 col-lg-6">
               <h1>
                 {" "}
                 <span>
@@ -42,6 +43,7 @@ function BasicCoinDetails({
                 isBigScreen={isBigScreen}
                 allCurrencyPrice={allCurrencyPrice}
               />
+              <div className="col-lg-2"></div>
             </div>
           </div>
         </div>
@@ -60,7 +62,9 @@ function BasicCoinDetails({
             </span>
           </div>
         </div>
-        <div className="col-lg-5 col-sm-12"></div>
+        <div className="col-lg-5 col-sm-12">
+          <Calculator currency={currency} price={allCurrencyPrice} />
+        </div>
       </div>
     </React.Fragment>
   );
