@@ -3,15 +3,21 @@ import "../styles/pages/ViewCoin.css";
 import SelectCurrency from "../components/SelectCurrency.js";
 import AnimateNumber from "../components/AnimateNumber";
 import Calculator from "../components/Calculator";
-/* eslint-disable react/jsx-key */
-/* eslint-disable no-unused-vars */
-/* eslint react/prop-types: 0 */
 
+/**
+ *
+ * @param { Object } data - the details about that particular coin
+ * @param {String} currency - the current user selected currency that you want to see the details in
+ * @param {Func} handleCurrencychange - callback function passed to the Selector which  changes the currency
+ * @param {boolean} isBigScreen - boolean value that specifies if the device width is that of a laptop / tablet
+ *
+ * @returns basic details of the price, selector to choose a different currency and a calculator to calcultate price from number of coins
+ */
+/* eslint react/prop-types: 0 */
 function BasicCoinDetails({
-  loadingData,
-  data,
+  coinData,
   currency,
-  handleChange,
+  handleCurrencychange,
   isBigScreen,
   allCurrencyPrice,
 }) {
@@ -26,11 +32,11 @@ function BasicCoinDetails({
             <h1>
               {" "}
               <span>
-                <img className="coin-logo" src={data?.image.large}></img>
+                <img className="coin-logo" src={coinData?.image.large}></img>
               </span>
-              <span className="coin-name">{data.name + "    "}</span>
+              <span className="coin-name">{coinData.name + "    "}</span>
               <span className="badge coin-symbol-badge text-dark">
-                {"  (" + data.symbol + ")"}
+                {"  (" + coinData.symbol + ")"}
               </span>
             </h1>
           </div>
@@ -38,7 +44,7 @@ function BasicCoinDetails({
           <div className="col-sm-12 col-lg-6">
             <SelectCurrency
               currency={currency}
-              onChange={handleChange}
+              handleCurrencychange={handleCurrencychange}
               isBigScreen={isBigScreen}
               allCurrencyPrice={allCurrencyPrice}
             />
@@ -62,13 +68,13 @@ function BasicCoinDetails({
               <p>
                 <i className="fa fa-solid fa-thumbs-up"></i>{" "}
                 <span style={{ color: "green" }}>
-                  {data.sentiment_votes_up_percentage + "%"}
+                  {coinData.sentiment_votes_up_percentage + "%"}
                 </span>
               </p>
               <p>
                 <i className="fa fa-solid fa-thumbs-down"></i>{" "}
                 <span style={{ color: "red" }}>
-                  {data.sentiment_votes_up_percentage + "%"}
+                  {coinData.sentiment_votes_down_percentage + "%"}
                 </span>
               </p>
             </div>
@@ -77,12 +83,7 @@ function BasicCoinDetails({
       </div>
 
       <div className="col-sm-12 col-lg-6">
-        <Calculator
-          currency={currency}
-          price={allCurrencyPrice}
-          name={data.name}
-          isBigScreen={isBigScreen}
-        />
+        <Calculator currency={currency} price={allCurrencyPrice} />
       </div>
     </div>
   );

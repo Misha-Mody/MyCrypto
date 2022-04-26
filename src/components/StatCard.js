@@ -1,19 +1,13 @@
 import React from "react";
-/* eslint-disable no-unused-vars */
+import { getNumberColor } from "../library/helper/utilities";
+/**
+ *
+ * @param {String} name - The header/name of the card
+ * @param {Object[]} data - The key-value pair of the information regarding the statistics
+ * @returns a card with statistics for the coin in a currency of your choosing
+ */
 /* eslint react/prop-types: 0 */
-/* eslint-disable react/jsx-key */
 export default function StatCard({ name, data, k }) {
-  const getClass = (d) => {
-    let c = "";
-    if (typeof d === "string" || d instanceof String) {
-      if (d.slice(0, 1) == "-") {
-        c = "text-danger";
-      } else {
-        c = "text-success";
-      }
-    }
-    return c;
-  };
   return (
     <div
       key={k}
@@ -25,7 +19,7 @@ export default function StatCard({ name, data, k }) {
         {Object.keys(data).map((d, k) => {
           return (
             <li key={k} className="stat-card-list list-group-item">
-              {d} <p className={getClass(data[d])}> {data[d]}</p>
+              {d} <p className={getNumberColor(data[d])}> {data[d]}</p>
             </li>
           );
         })}

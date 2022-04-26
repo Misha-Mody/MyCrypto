@@ -1,8 +1,12 @@
 import React from "react";
 import propTypes from "prop-types";
-
+/**
+ *
+ * @param {Object} globalData - data relatating to the market
+ * @returns a top navigation bar displaying the market values
+ */
 export default function Navbar({ globalData }) {
-  const style = { color: "#007bff" };
+  const style = { color: "#f39c12" };
   return (
     <nav className="navbar sticky-top navbar-dark bg-dark">
       <div className="container-fluid">

@@ -1,21 +1,20 @@
 import React, { useState, useEffect } from "react";
-import {
-  LineSeries,
-  XAxis,
-  YAxis,
-  FlexibleXYPlot,
-  GradientDefs,
-} from "react-vis";
+import { LineSeries, XAxis, YAxis, FlexibleXYPlot } from "react-vis";
 
+/**
+ *
+ * @param {Object} coinInformation -  public instance that can make function calls to api
+ * @returns a line chart
+ */
 export default function PriceChart({ coinInfo }) {
-  // Save the list of coins as a state variable
+  // Save the prices as a state variable
   const [price, setPrice] = useState([]);
   // If the data is still loading, does not render the table
   const [loadingData, setLoadingData] = useState(true);
 
   /**
-   * This functions uses the public instance of the library to get the list of coins
-   * and stores it in a state variable called coins
+   * This functions uses the public instance of the library to get the list of prices
+   * and stores it in a state variable called prices
    */
   /* eslint react/prop-types: 0 */
   async function fetch() {
@@ -30,6 +29,7 @@ export default function PriceChart({ coinInfo }) {
     }
   }, []);
 
+  // format the data as object of x and y coordinates to be put in the chart
   const loopData = () => {
     let data = [];
     for (let i = 0; i < price.length; i++) {
@@ -37,8 +37,6 @@ export default function PriceChart({ coinInfo }) {
     }
     return data;
   };
-
-  console.log(price);
 
   return (
     <div className="mt-5 row">
@@ -49,12 +47,6 @@ export default function PriceChart({ coinInfo }) {
           <h3> 7d Price Chart (usd) </h3>{" "}
           <div className="chart-container">
             <FlexibleXYPlot xType="time" width={1000} height={400}>
-              <GradientDefs>
-                <linearGradient id="CoolGradient" x1="0" x2="0" y1="0" y2="1">
-                  <stop offset="0%" stopColor="red" stopOpacity={0.4} />
-                  <stop offset="100%" stopColor="blue" stopOpacity={0.3} />
-                </linearGradient>
-              </GradientDefs>
               <YAxis
                 tickFormat={(v) => `${v.toString().slice(0, 2)}K`}
                 title="Price"

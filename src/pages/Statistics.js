@@ -1,16 +1,23 @@
-import React from "react";
+import React, { useEffect } from "react";
 import StatCard from "../components/StatCard";
 import Carousel, { arrowsPlugin } from "@brainhubeu/react-carousel";
 import "@brainhubeu/react-carousel/lib/style.css";
+
+/**
+ * Displays a carousel of stat cards when using on mobile and a row on largen screen widths
+ * @param {Object []} statData - The key-value pair of the information regarding the statistics
+ * @returns
+ */
 /* eslint-disable no-unused-vars */
 /* eslint react/prop-types: 0 */
-
-export default function Statistics({ data }) {
+export default function Statistics({ statData }) {
+  // store the current width of the device
   const [dimensions, setDimensions] = React.useState({
     height: window.innerHeight,
     width: window.innerWidth,
   });
-  React.useEffect(() => {
+  useEffect(() => {
+    // handleResize function is passed as a callback, waits for 1000 ms and then called
     const debouncedHandleResize = debounce(function handleResize() {
       setDimensions({
         height: window.innerHeight,
@@ -18,6 +25,7 @@ export default function Statistics({ data }) {
       });
     }, 1000);
 
+    // dynamically listen to width change , call the debouncedHandleResize function if width is changed
     window.addEventListener("resize", debouncedHandleResize);
 
     return (_) => {
@@ -26,7 +34,7 @@ export default function Statistics({ data }) {
   });
 
   let cards = [];
-  for (let obj of data) {
+  for (let obj of statData) {
     cards.push(
       <StatCard name={Object.keys(obj)} data={obj[Object.keys(obj)]} />
     );
@@ -69,6 +77,7 @@ export default function Statistics({ data }) {
   );
 }
 
+// creates a delay for ms seconds untill the state is updated to avoid multiple state updates and re-rendering on change of screen width
 function debounce(fn, ms) {
   let timer;
   return (_) => {

@@ -10,11 +10,16 @@ import BreadCrumb from "../components/BreadCrumb";
 import Loader from "../components/Loader";
 import PriceChart from "../components/PriceChart";
 
+/**
+ *
+ * @param {Object[]} globalData - data regarding the global market stats
+ * @param {Object[]} coinInfo - public instance that can make api calls to get info regarding coins
+ * @returns
+ */
 /* eslint-disable react/jsx-key */
 /* eslint-disable no-unused-vars */
-
 function ViewCoin({ globalData, coinInfo }) {
-  const [data, setData] = useState();
+  const [coinData, setCoinData] = useState();
   // If the data is still loading, does not render the table
   const [loadingData, setLoadingData] = useState(true);
 
@@ -32,7 +37,7 @@ function ViewCoin({ globalData, coinInfo }) {
 
   async function fetch(name) {
     const data = await coinInfo.getCoinInfo(name);
-    setData(data);
+    setCoinData(data);
     setAllCurrencyPrice(data.market_data.current_price);
     setLoadingData(false);
   }
@@ -43,51 +48,56 @@ function ViewCoin({ globalData, coinInfo }) {
     }
   }, [searchParams]);
 
-  const handleChange = (newValue) => {
+  const handleCurrencychange = (newValue) => {
     setCurrency(newValue);
   };
 
   function getMarketData() {
     let mdata = {};
-    mdata["Rank"] = data.market_cap_rank;
-    mdata["Market Cap"] = data.market_data.market_cap[currency];
-    mdata["Suppy"] = data.market_data.circulating_supply;
+    mdata["Rank"] = coinData.market_cap_rank;
+    mdata["Market Cap"] = coinData.market_data.market_cap[currency];
+    mdata["Suppy"] = coinData.market_data.circulating_supply;
     mdata["MCap Change (24h)"] =
-      data.market_data.market_cap_change_percentage_24h_in_currency[currency] +
-      "%";
+      coinData.market_data.market_cap_change_percentage_24h_in_currency[
+        currency
+      ] + "%";
     return mdata;
   }
 
   function getPriceData() {
     let mdata = {};
-    mdata["ATH"] = data.market_data.ath[currency];
+    mdata["ATH"] = coinData.market_data.ath[currency];
     mdata["ATH Change"] =
-      data.market_data.ath_change_percentage[currency] + "%";
-    mdata["ATL"] = data.market_data.atl[currency];
+      coinData.market_data.ath_change_percentage[currency] + "%";
+    mdata["ATL"] = coinData.market_data.atl[currency];
     mdata["ATL Change"] =
-      data.market_data.atl_change_percentage[currency] + "%";
+      coinData.market_data.atl_change_percentage[currency] + "%";
     return mdata;
   }
 
   function getPriceChangeData() {
     let mdata = {};
     mdata["1 hour"] =
-      data.market_data.price_change_percentage_1h_in_currency[currency] + "%";
+      coinData.market_data.price_change_percentage_1h_in_currency[currency] +
+      "%";
     mdata["24 hours"] =
-      data.market_data.price_change_percentage_24h_in_currency[currency] + "%";
+      coinData.market_data.price_change_percentage_24h_in_currency[currency] +
+      "%";
     mdata["60 days"] =
-      data.market_data.price_change_percentage_60d_in_currency[currency] + "%";
+      coinData.market_data.price_change_percentage_60d_in_currency[currency] +
+      "%";
     mdata["1 year"] =
-      data.market_data.price_change_percentage_1y_in_currency[currency] + "%";
+      coinData.market_data.price_change_percentage_1y_in_currency[currency] +
+      "%";
     return mdata;
   }
 
   function getScoreData() {
     let mdata = {};
-    mdata["CoinGecko"] = data.coingecko_score;
-    mdata["Community Score"] = data.community_score;
-    mdata["ATL"] = data.developer_score;
-    mdata["Liquidity Score"] = data.liquidity_score;
+    mdata["CoinGecko"] = coinData.coingecko_score;
+    mdata["Community Score"] = coinData.community_score;
+    mdata["ATL"] = coinData.developer_score;
+    mdata["Liquidity Score"] = coinData.liquidity_score;
     return mdata;
   }
 
@@ -105,25 +115,25 @@ function ViewCoin({ globalData, coinInfo }) {
       {loadingData ? (
         <Loader />
       ) : (
-        <React.Fragment>
+        <div>
           <Navbar globalData={globalData} />
           <div className="container-fluid mt-5">
             <BreadCrumb />
             <BasicCoinDetails
               loadingData={loadingData}
-              data={data}
+              coinData={coinData}
               currency={currency}
-              handleChange={handleChange}
+              handleCurrencychange={handleCurrencychange}
               isBigScreen={isBigScreen}
               allCurrencyPrice={allCurrencyPrice}
             />
             <div className="row mt-5">
               <h3> Statistical Data</h3>
-              <Statistics data={getStatisticData()} />
+              <Statistics statData={getStatisticData()} />
             </div>
             <PriceChart coinInfo={coinInfo} />
           </div>
-        </React.Fragment>
+        </div>
       )}
     </div>
   );

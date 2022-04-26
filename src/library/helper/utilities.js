@@ -2,9 +2,9 @@
  *
  * @param {*} num The number that needs to be transoformed in term of million , billion, etc
  * @param {*} digits The value to round of till
- * @returns A string of the formatted number
+ * @returns A string of the formatted number ( 1000000 -> 1 million)
  */
-export function numberToString(num, digits = 2) {
+function numberToValueString(num, digits = 2) {
   const lookup = [
     { value: 1, symbol: "" },
     { value: 1e3, symbol: "Thousand" },
@@ -25,3 +25,38 @@ export function numberToString(num, digits = 2) {
     ? (num / item.value).toFixed(digits).replace(rx, "$1") + " " + item.symbol
     : "0";
 }
+
+/**
+ *
+ * @param {*} n the number that you want to round
+ * @param {*} digits  till how many digits do you want to round it
+ * @returns number rounded to desired digits
+ */
+function roundNumberTo(n, digits) {
+  if (digits === undefined) {
+    digits = 0;
+  }
+
+  var multiplicator = Math.pow(10, digits);
+  n = parseFloat((n * multiplicator).toFixed(11));
+  return Math.round(n) / multiplicator;
+}
+
+/**
+ * Display a red color for negative percentages or numbers and green color for positive
+ * @param {*} num Number or String  who's color we want to determine
+ * @returns
+ */
+function getNumberColor(num) {
+  if (typeof num === "string" || num instanceof String) {
+    if (num.slice(0, 1) == "-") {
+      return "text-danger";
+    } else {
+      return "text-success";
+    }
+  } else {
+    return num > 0 ? "text-success" : "text-danger";
+  }
+}
+
+export { numberToValueString, roundNumberTo, getNumberColor };
