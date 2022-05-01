@@ -19,7 +19,6 @@ export default function Calculator({ currency, allCurrencyPrice }) {
    */
   const handleCoinNumChange = (e) => {
     setCoinNum(e.target.value);
-    console.log(allCurrencyPrice);
     setcPrice((e.target.value * allCurrencyPrice[currency]).toFixed(2));
   };
 
