@@ -45,3 +45,7 @@ describe("check if navigation between the 2 pages works", () => {
     cy.location("pathname").should("not.include", "coin");
   });
 });
+
+// describe("tests the calculator functionality", () => {
+//   it("check if price is correctly being calculated", () => {});
+// });
