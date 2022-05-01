@@ -83,7 +83,7 @@ function BasicCoinDetails({
       </div>
 
       <div className="col-sm-12 col-lg-6">
-        <Calculator currency={currency} price={allCurrencyPrice} />
+        <Calculator currency={currency} allCurrencyPrice={allCurrencyPrice} />
       </div>
     </div>
   );
