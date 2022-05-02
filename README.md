@@ -23,7 +23,7 @@ The View Coin page displays further information for that particular coin.
    A library to make api calls to get the list of coins.
 
 2.[Coin Info Library](https://github.com/Misha-Mody/MyCrypto/blob/main/src/library/CoinInfoLibrary.js)
-A library to make api calls to get data regarding a particular coin.
+   A library to make api calls to get data regarding a particular coin.
 
 3. [Main Directory Page](https://github.com/Misha-Mody/MyCrypto/blob/main/src/pages/MainDirectory.js)
    Displays the list of top 10 coins (sorted in ascensing order by market cap value) with their high level information using React-Tables.
@@ -39,3 +39,12 @@ A library to make api calls to get data regarding a particular coin.
 4. All the stats and data changes according to the currency selected
 5. User can calculate the total price of buying the coin in the currency of their choosing
 6. User can click the home link to route back to the main page
+
+
+<img width="1437" alt="Screenshot 2022-05-01 at 11 44 14 PM" src="https://user-images.githubusercontent.com/44525752/166194960-7cf63815-a1b7-4067-b58d-3be970611c2a.png">
+
+
+
+
+<img width="1437" alt="Screenshot 2022-05-01 at 11 44 27 PM" src="https://user-images.githubusercontent.com/44525752/166194975-d335e77d-b36c-4c21-a70b-307fe6744421.png">
+
